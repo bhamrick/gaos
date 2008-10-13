@@ -3,7 +3,7 @@ ASMFLAGS=-felf -g
 LDFLAGS=-melf_i386
 LINKER=linker.ld
 
-OBJECTS=build/boot.asm.o build/main.c.o build/screen.c.o build/gdt.c.o build/gdt.asm.o build/idt.c.o build/idt.asm.o
+OBJECTS=build/boot.asm.o build/main.c.o build/screen.c.o build/gdt.c.o build/gdt.asm.o build/idt.c.o build/idt.asm.o build/stdlib.c.o
 
 all: kernel
 	echo Done!
@@ -19,12 +19,13 @@ asm: src/asm/boot.asm src/asm/gdt.asm src/asm/idt.asm
 	nasm $(ASMFLAGS) src/asm/gdt.asm -o build/gdt.asm.o
 	nasm $(ASMFLAGS) src/asm/idt.asm -o build/idt.asm.o
 
-c: src/c/main.c src/c/screen.c src/c/gdt.c src/c/idt.c
+c: src/c/main.c src/c/screen.c src/c/gdt.c src/c/idt.c src/c/stdlib.c
 	mkdir -p build
 	gcc $(CFLAGS) src/c/main.c -c -o build/main.c.o
 	gcc $(CFLAGS) src/c/screen.c -c -o build/screen.c.o
 	gcc $(CFLAGS) src/c/gdt.c -c -o build/gdt.c.o
 	gcc $(CFLAGS) src/c/idt.c -c -o build/idt.c.o
+	gcc $(CFLAGS) src/c/stdlib.c -c -o build/stdlib.c.o
 
 clean: 
 	rm build/*

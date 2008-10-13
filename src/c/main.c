@@ -1,6 +1,7 @@
 //FILE: main.c
 
 #include<multiboot.h>
+#include<stdlib.h>
 #include<screen.h>
 #include<gdt.h>
 #include<idt.h>
@@ -15,5 +16,8 @@ int main(int magic, multiboot_info_t* addr) {
 	initialize_gdt();
 	initialize_idt();
 	puts(vga_text_buffer,2,0,"Hello World!");
+	char str[13];
+	memcpy(str,"Hello World!",13);
+	puts(vga_text_buffer,3,0,str);
 	return 0x3BADB002;
 }
