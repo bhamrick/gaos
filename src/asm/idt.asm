@@ -10,12 +10,14 @@ extern idt
 %macro handler_entry_asm 1
 global handler_entry%1
 handler_entry%1:
+	;push registers
 	push edi
 	push esi
 	push edx
 	push ecx
 	push ebx
 	push eax
+	;push interrupt number
 	push dword %1
 	call handler_entry_c
 	add esp,28

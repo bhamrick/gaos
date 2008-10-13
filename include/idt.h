@@ -13,7 +13,7 @@ typedef struct idt_entry {
 	u16int offset_hi;
 } idt_entry_t;
 
-typedef void(*handler_t)(registers_t);
+typedef void(*handler_t)(int,registers_t);
 
 idt_entry_t idt[256];
 handler_t interrupt_handler[256];
