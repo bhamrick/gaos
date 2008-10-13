@@ -19,7 +19,5 @@ void initialize_gdt() {
 	gdt[1] = make_gdt_entry(0x00000000,0xFFFFF,0x9A,0x6);
 	gdt[2] = make_gdt_entry(0x00000000,0xFFFFF,0x92,0x6);
 	gdt[3] = make_gdt_entry(0x00000000,0xFFFFF,0x89,0x6);
-	puti(vga_text_buffer,2,0,&gdt);
-	puti(vga_text_buffer,3,0,sizeof(gdt));
 	finish_gdt_init(&gdt,sizeof(gdt));
 }

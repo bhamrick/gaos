@@ -12,4 +12,13 @@ typedef          int       s32int;
 typedef unsigned long long u64int;
 typedef          long long s64int;
 
+typedef struct registers {
+	u32int eax;
+	u32int ebx;
+	u32int ecx;
+	u32int edx;
+	u32int esi;
+	u32int edi;
+} registers_t;
+
 #endif

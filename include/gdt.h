@@ -4,7 +4,6 @@
 #define GDT_H
 
 #include<common.h>
-#include<screen.h>
 
 extern reload_segments();
 
