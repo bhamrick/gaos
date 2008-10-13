@@ -2,12 +2,14 @@
 
 #include<multiboot.h>
 #include<screen.h>
+#include<gdt.h>
 
 int main(int magic, multiboot_info_t* addr) {
 	vga_text_buffer.addr=(u8int*)0xB8000;
 	vga_text_buffer.rows=25;
 	vga_text_buffer.cols=80;
 	kclear();
+	initialize_gdt();
 	puts(vga_text_buffer,1,0,"Hello World!");
 	kputch(0,0,'H',0x07);
 	kputch(0,1,'E',0x07);

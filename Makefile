@@ -3,7 +3,7 @@ ASMFLAGS=-felf -g
 LDFLAGS=-melf_i386
 LINKER=linker.ld
 
-OBJECTS=build/boot.asm.o build/main.c.o build/screen.c.o
+OBJECTS=build/boot.asm.o build/main.c.o build/screen.c.o build/gdt.c.o build/gdt.asm.o
 
 all: kernel
 	echo Done!
@@ -16,11 +16,13 @@ kernel: asm c
 asm: src/asm/boot.asm
 	mkdir -p build
 	nasm $(ASMFLAGS) src/asm/boot.asm -o build/boot.asm.o
+	nasm $(ASMFLAGS) src/asm/gdt.asm -o build/gdt.asm.o
 
 c:
 	mkdir -p build
 	gcc $(CFLAGS) src/c/main.c -c -o build/main.c.o
 	gcc $(CFLAGS) src/c/screen.c -c -o build/screen.c.o
+	gcc $(CFLAGS) src/c/gdt.c -c -o build/gdt.c.o
 
 clean: 
 	rm build/*
