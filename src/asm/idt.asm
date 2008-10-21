@@ -10,6 +10,8 @@ extern idt
 %macro handler_entry_asm 1
 global handler_entry%1
 handler_entry%1:
+	;push dummy errcode
+	push dword 0
 	;push registers
 	push edi
 	push esi
@@ -20,7 +22,25 @@ handler_entry%1:
 	;push interrupt number
 	push dword %1
 	call handler_entry_c
-	add esp,28
+	add esp,32
+	iret
+%endmacro
+
+%macro handler_entry_asm_ec 1
+global handler_entry%1
+handler_entry%1:
+	;errcode already on stack
+	;push registers
+	push edi
+	push esi
+	push edx
+	push ecx
+	push ebx
+	push eax
+	;push interrupt number
+	push dword %1
+	call handler_entry_c
+	add esp,32
 	iret
 %endmacro
 
@@ -41,13 +61,13 @@ handler_entry_asm 4
 handler_entry_asm 5
 handler_entry_asm 6
 handler_entry_asm 7
-handler_entry_asm 8
+handler_entry_asm_ec 8
 handler_entry_asm 9
-handler_entry_asm 10
-handler_entry_asm 11
-handler_entry_asm 12
-handler_entry_asm 13
-handler_entry_asm 14
+handler_entry_asm_ec 10
+handler_entry_asm_ec 11
+handler_entry_asm_ec 12
+handler_entry_asm_ec 13
+handler_entry_asm_ec 14
 handler_entry_asm 15
 handler_entry_asm 16
 handler_entry_asm 17
